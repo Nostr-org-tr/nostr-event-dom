@@ -246,8 +246,8 @@
     </div>
   </div>
 
-  <!-- Load standalone IIFE bundle compatible with both file:// protocol and web servers -->
-  <script src="./dist/nostr-event.global.js"></script>
+  <!-- Load standalone IIFE bundle via jsDelivr CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@nostr-org-tr/nostr-event-dom/dist/nostr-event.global.js"></script>
   <script>
     function loadCustomEvent() {
       const input = document.getElementById('custom-src-input');
