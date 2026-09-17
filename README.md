@@ -1,11 +1,23 @@
-# nostr-event-dom
+# @nostr-org-tr/nostr-event-dom
 
-[![npm version](https://img.shields.io/npm/v/nostr-event-dom.svg)](https://www.npmjs.com/package/nostr-event-dom)
-[![license](https://img.shields.io/npm/l/nostr-event-dom.svg)](https://github.com/Nostr-org-tr/nostr-event-dom/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@nostr-org-tr/nostr-event-dom.svg)](https://www.npmjs.com/package/@nostr-org-tr/nostr-event-dom)
+[![license](https://img.shields.io/npm/l/@nostr-org-tr/nostr-event-dom.svg)](https://github.com/Nostr-org-tr/nostr-event-dom/blob/main/LICENSE)
 
 A lightweight, zero-config Web Component (`<nostr-event>`) to embed and render Nostr events across any website or application.
 
 Inspired by [`<mastodon-post>`](https://github.com/daviddarnes/mastodon-post), `<nostr-event>` provides progressive enhancement, automatic relay resolution, safe content sanitization, and full CSS customizability without requiring complex template markup.
+
+---
+
+## 📸 Screenshots & Previews
+
+| Light Note (Kind 1) | Dark Profile (Kind 0) |
+| :---: | :---: |
+| ![Light Note Preview](./light-note-demo.png) | ![Dark Profile Preview](./dark-profile-demo.png) |
+
+| Light Profile (Kind 0) | Custom Styled Profile |
+| :---: | :---: |
+| ![Light Profile Preview](./light-profile-demo.png) | ![Custom Styled Profile Preview](./custom-profile-demo.png) |
 
 ---
 
@@ -31,10 +43,13 @@ Inspired by [`<mastodon-post>`](https://github.com/daviddarnes/mastodon-post), `
 
 ```html
 <!-- Standalone Script (Works offline & online) -->
-<script src="https://unpkg.com/nostr-event-dom"></script>
+<script src="https://cdn.jsdelivr.net/npm/@nostr-org-tr/nostr-event-dom/dist/nostr-event.global.js"></script>
 
-<!-- Or ES Module -->
-<!-- <script type="module" src="https://unpkg.com/nostr-event-dom/dist/nostr-event.js"></script> -->
+<!-- Or via unpkg -->
+<!-- <script src="https://unpkg.com/@nostr-org-tr/nostr-event-dom/dist/nostr-event.global.js"></script> -->
+
+<!-- Or ES Module via esm.sh -->
+<!-- <script type="module" src="https://esm.sh/@nostr-org-tr/nostr-event-dom"></script> -->
 
 <!-- Profile via NIP-05 -->
 <nostr-event event="fiatjaf@fiatjaf.com"></nostr-event>
@@ -52,7 +67,7 @@ Inspired by [`<mastodon-post>`](https://github.com/daviddarnes/mastodon-post), `
 ### 2. Progressive Enhancement (Fallback Links)
 
 ```html
-<script type="module" src="https://unpkg.com/nostr-event-dom"></script>
+<script src="https://cdn.jsdelivr.net/npm/@nostr-org-tr/nostr-event-dom/dist/nostr-event.global.js"></script>
 
 <nostr-event>
   <a href="nostr:npub180cvv07tjdrrgpa0j7j7tmnyl2yr6yr7l8j4s3evf6u64th6gkwsyjh6w6">
@@ -64,11 +79,11 @@ Inspired by [`<mastodon-post>`](https://github.com/daviddarnes/mastodon-post), `
 ### 3. Install via npm / yarn / pnpm
 
 ```bash
-npm install nostr-event-dom
+npm install @nostr-org-tr/nostr-event-dom
 ```
 
 ```javascript
-import 'nostr-event-dom';
+import '@nostr-org-tr/nostr-event-dom';
 ```
 
 ---

@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 NVM := export NVM_DIR="$$HOME/.nvm"; [ -s "$$NVM_DIR/nvm.sh" ] && \. "$$NVM_DIR/nvm.sh"; nvm use
 
-.PHONY: all install dev build test test-watch test-coverage lint deploy clean
+.PHONY: all install dev build test test-watch test-coverage lint deploy publish publish-dry-run clean
 
 all: build
 
@@ -29,6 +29,12 @@ lint:
 deploy: build
 	@echo "Deploying nostr-event-dom..."
 	@echo "Build output is ready in ./dist directory."
+
+publish-dry-run:
+	@$(NVM) && npm publish --dry-run
+
+publish: test build
+	@$(NVM) && npm publish --access public
 
 clean:
 	@rm -rf dist node_modules

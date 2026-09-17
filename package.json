@@ -1,8 +1,11 @@
 {
-  "name": "nostr-event-dom",
+  "name": "@nostr-org-tr/nostr-event-dom",
   "version": "0.1.0",
   "description": "A lightweight web component for rendering Nostr events with CSS customizability",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./dist/nostr-event.umd.cjs",
   "module": "./dist/nostr-event.js",
   "unpkg": "./dist/nostr-event.global.js",
@@ -29,7 +32,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "npm run test && npm run build"
   },
   "repository": {
     "type": "git",
