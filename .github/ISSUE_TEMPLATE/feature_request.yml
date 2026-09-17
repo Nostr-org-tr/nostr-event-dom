@@ -1,0 +1,30 @@
+name: 💡 Feature Request / NIP Support
+description: Suggest an idea or request support for a new Nostr NIP / event kind
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a feature to make `<nostr-event>` better!
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Motivation
+      description: Is your feature request related to a problem or a new Nostr NIP specification?
+      placeholder: I would like `<nostr-event>` to support Kind XXXX (NIP-XX)...
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: A clear and concise description of what you want to happen and how the event should be rendered.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: A description of any alternative solutions or features you've considered.
+    validations:
+      required: false

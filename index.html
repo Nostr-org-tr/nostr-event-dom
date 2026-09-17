@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nostr-event-dom &mdash; Nostr Event Web Component Demo</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --card-bg: #1e293b;
+      --accent: #8b5cf6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 32px 16px 80px;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a78bfa, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: var(--card-bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .interactive-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 40px;
+    }
+
+    .interactive-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      min-width: 260px;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #ffffff;
+      font-family: monospace;
+      font-size: 14px;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .code-snippet {
+      background: #090d16;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: monospace;
+      font-size: 13px;
+      color: #93c5fd;
+      margin-bottom: 16px;
+      overflow-x: auto;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .demo-grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Custom CSS Overrides Showcase */
+    .custom-styled-container {
+      --ne-card-bg: #18181b;
+      --ne-border: #f59e0b;
+      --ne-accent: #f59e0b;
+      --ne-accent-light: #451a03;
+      --ne-radius: 20px;
+      --ne-text: #fef3c7;
+      --ne-text-muted: #d97706;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>&lt;nostr-event&gt;</h1>
+      <p class="subtitle">A lightweight, customizable Web Component to embed and render any Nostr event on the web.</p>
+      
+      <div class="toolbar">
+        <button class="btn" onclick="toggleTheme()">🌓 Toggle Component Theme (Light/Dark)</button>
+        <button class="btn" onclick="toggleCustomCSS()">🎨 Toggle Custom CSS Variables</button>
+      </div>
+    </header>
+
+    <!-- Interactive Live Preview Box -->
+    <div class="interactive-card">
+      <div class="interactive-title">⚡ Live Event Explorer</div>
+      <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 12px;">Paste any NIP-05 (<code>name@domain.com</code>), <code>nevent1...</code>, <code>note1...</code>, <code>npub1...</code>, <code>naddr1...</code>, or 64-char hex ID:</p>
+      <div class="input-group">
+        <input id="custom-src-input" type="text" placeholder="e.g. delirehberi@emre.xyz, note1..., or npub1..." value="delirehberi@emre.xyz" />
+        <button class="btn" style="background: var(--accent); color: white; border: none;" onclick="loadCustomEvent()">Render Event</button>
+      </div>
+      <div style="margin-top: 20px;">
+        <nostr-event id="interactive-target" event="delirehberi@emre.xyz"></nostr-event>
+      </div>
+    </div>
+
+    <!-- NIP-05 & Kind 0 Profile Demo -->
+    <div class="section">
+      <h2 class="section-title">👤 User Profile via NIP-05 (Kind 0)</h2>
+      <p class="section-desc">Pass a simple NIP-05 identifier (e.g. <code>event="delirehberi@emre.xyz"</code>) or an <code>npub1...</code> to render user profile, NIP-05 badge, bio, website, and Lightning address.</p>
+      <div class="code-snippet">&lt;nostr-event event="delirehberi@emre.xyz"&gt;&lt;/nostr-event&gt;</div>
+      <nostr-event id="demo-profile" event="delirehberi@emre.xyz"></nostr-event>
+    </div>
+
+    <!-- Kind 1 Text Note Demo -->
+    <div class="section">
+      <h2 class="section-title">📝 Text Note (Kind 1)</h2>
+      <p class="section-desc">Renders notes by <code>note1...</code> or <code>nevent1...</code> with autolinked URLs, hashtags, NIP-21 nostr: mentions, and inline media embeds.</p>
+      <div class="code-snippet">&lt;nostr-event event="npub180cvv07tjdrrgpa0j7j7tmnyl2yr6yr7l8j4s3evf6u64th6gkwsyjh6w6"&gt;&lt;/nostr-event&gt;</div>
+      <nostr-event id="demo-note" event="npub180cvv07tjdrrgpa0j7j7tmnyl2yr6yr7l8j4s3evf6u64th6gkwsyjh6w6"></nostr-event>
+    </div>
+
+    <!-- Progressive Enhancement Demo -->
+    <div class="section">
+      <h2 class="section-title">⚡ Progressive Enhancement (Fallback Links)</h2>
+      <p class="section-desc">Works just like <code>&lt;mastodon-post&gt;</code>: Search engines and non-JS clients see standard HTML links, and the component hydrates automatically when JavaScript runs.</p>
+      <div class="code-snippet">&lt;nostr-event&gt;
+  &lt;a href="nostr:npub180cvv07tjdrrgpa0j7j7tmnyl2yr6yr7l8j4s3evf6u64th6gkwsyjh6w6"&gt;
+    View Profile on Nostr
+  &lt;/a&gt;
+&lt;/nostr-event&gt;</div>
+      <nostr-event id="demo-progressive">
+        <a href="nostr:npub180cvv07tjdrrgpa0j7j7tmnyl2yr6yr7l8j4s3evf6u64th6gkwsyjh6w6">
+          View fiatjaf on Nostr (Hydrating...)
+        </a>
+      </nostr-event>
+    </div>
+
+    <!-- CSS Customization Showcase -->
+    <div class="section" id="custom-css-section">
+      <h2 class="section-title">🎨 CSS Customization & Variables</h2>
+      <p class="section-desc">Override any CSS custom property (<code>--ne-card-bg</code>, <code>--ne-accent</code>, <code>--ne-radius</code>, <code>--ne-border</code>) or target shadow DOM <code>::part(card)</code> without writing custom templates.</p>
+      
+      <div class="code-snippet">nostr-event.custom-theme {
+  --ne-card-bg: #18181b;
+  --ne-border: #f59e0b;
+  --ne-accent: #f59e0b;
+  --ne-radius: 20px;
+}</div>
+
+      <div class="custom-styled-container">
+        <nostr-event event="delirehberi@emre.xyz"></nostr-event>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load standalone IIFE bundle compatible with both file:// protocol and web servers -->
+  <script src="./dist/nostr-event.global.js"></script>
+  <script>
+    function loadCustomEvent() {
+      const input = document.getElementById('custom-src-input');
+      const target = document.getElementById('interactive-target');
+      if (input && target) {
+        target.setAttribute('event', input.value.trim());
+      }
+    }
+
+    let isDark = true;
+    function toggleTheme() {
+      isDark = !isDark;
+      const elements = document.querySelectorAll('nostr-event');
+      elements.forEach(el => {
+        el.setAttribute('theme', isDark ? 'dark' : 'light');
+      });
+    }
+
+    function toggleCustomCSS() {
+      const section = document.getElementById('custom-css-section');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  </script>
+</body>
+</html>

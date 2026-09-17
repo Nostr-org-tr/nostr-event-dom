@@ -1,0 +1,54 @@
+name: 🐛 Bug Report
+description: Create a report to help us improve nostr-event-dom
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: input
+    id: event_input
+    attributes:
+      label: Event ID / Bech32 / NIP-05
+      description: The Nostr event or identifier that triggers the issue (e.g. `nevent1...`, `npub1...`, `user@domain.com`).
+      placeholder: nevent1qqs...
+    validations:
+      required: false
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Steps or minimal HTML snippet to reproduce the behavior.
+      placeholder: |
+        1. Add `<nostr-event src="nevent1..."></nostr-event>`
+        2. Inspect output
+        3. See error...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Browser / Environment
+      options:
+        - Chrome / Chromium
+        - Firefox
+        - Safari / WebKit
+        - Edge
+        - Node.js / SSR
+        - Other
+    validations:
+      required: true
